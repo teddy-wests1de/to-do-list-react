@@ -1,13 +1,140 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  list-style: none;
+}
+body {
+  min-height: 100vh;
+  color: #919193;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Mobile View [Default] */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* background-color: bisque; */
+  max-width: 100%;
+  margin: auto;
+  height: 100%;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: .5rem;
+  background-color: hsla(225, 3%, 70%, 0.348);
+  color: #007DFC;
+  flex: 0 0 auto;
+}
+/* Logo */
+.logo {
+  flex: 0 0 auto;
+}
+/* Site-name */
+.site-name {
+  flex: 1;
+}
+.nav {
+  display: flex;
+  flex: 0 0 auto;
+  position: relative;
+}
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  position: fixed;
+  right: 0;
+  top: 3.7rem;
+  padding: 1.4rem 4rem;
+  background-color: #b1b2b5;
+  transition: all ease-in-out 0.5s;
+}
+.menu.hidden {
+  right: -100%;
+}
+.menu-btn {
+  width: 32px;
+  height: 32px;
+  /* background-color: rgba(149, 55, 55, 0.478); */
+  position: relative;
+  border: none;
+  /* right: 1rem; */
+}
+.nav-link {
+  text-decoration: none;
+}
+.nav-link:hover {
+  color: brown;
+}
+.menu-btn:hover {
+  /* background-color: rgba(149, 55, 55, 0.856); */
+  cursor: pointer;
+}
+.fa-sharp, .fa-solid {
+  font-size: 1.4rem;
+  color: #007DFC;
+}
+.main {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main h4 {
+  /* margin: 1rem; */
+}
+.add-form {
+  display: flex;
+  margin: 1rem 0;
+  max-width: 480px;
+  border: 1px solid #007DFC;
+  width: 100%;
+}
+.add-form input {
+  padding: .5rem;
+  flex: 1;
+  outline: none;
+  border: none;
+}
+.add-form button {
+  flex: 0 0 auto;
+  padding: 0 .5rem;
+  border: none;
+}
+.list-items {
+  width: 100%;
+  height: 100px;
+  background-color: #007DFC;
+}
+.footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+/* Desktop View */
+@media screen and (min-width: 60rem) {
+  .app-container {
+      max-width: 75rem;
+  }
+  .header {
+      justify-content: space-between;
+  }
+  .menu {
+      all: unset;
+      display: flex;
+      gap: 1rem;
+      margin-right: 1rem;
+  }
+  
+  .menu-btn {
+      display: none;
+  }
 }
