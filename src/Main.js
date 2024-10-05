@@ -1,69 +1,54 @@
 import { useState } from "react";
+import { ItemList } from "./ItemList";
 
 
-export function Main({date}) {
+export function Main({date, open, onOpen, onEdit, items, onAddItems}) {
   const [input, setInput] = useState('');
-  const [items, setItems] = useState([])
+
 
   function handleAddItems(item) {
-    setItems(items => [...items, item]);
+    onAddItems(items => [...items, item]);
   }
+  function handleToggleItem(id) {
+    onAddItems(items => items.map(item => item.id === id ? {...item, checked: !item.checked} : item))
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    const id = crypto.randomUUID();
+    // const id = crypto.randomUUID();
 
     const item = {
-      id,
+      id: crypto.randomUUID(),
       name: input,
       date: date.toDateString(),
       checked: false,
       assigned: '',
+      status: 'Unassigned',
+      description: 'Default Description...!'
     }
     // console.log(item);
     handleAddItems(item);
     setInput('');
-    console.log(item);
+    
   }
 
-  function handleToggleItem(id) {
-    setItems(items => items.map(item => item.id === id ? {...item, checked: !item.checked} : item))
-  }
   return (
     <main className="main">
       <h3>
       Today: {date.toDateString()}
       </h3>
-      <form className="add-form" onSubmit={handleSubmit}>
-        <input type="text" placeholder="Enter to do item..." value={input} onChange={(e)=>setInput(e.target.value)}/>
-        <button type="submit"><i className="fa-sharp fa-solid fa-plus"></i></button>
-      </form>
-
-      <div className="item-list">
-        <ul className="list-items">
-        {items.map(item => (
-          <Item item={item} onToggle={handleToggleItem}  key={item.id}/>
-        ))}
-        </ul>
-      </div>
+      <Form onSubmit={handleSubmit} onInput={setInput} input={input}/>
+      <ItemList items={items} onToggle={handleToggleItem} open={open} onOpen={onOpen} onEdit={onEdit}/>
     </main>
   );
 }
 
+function Form({onSubmit, input, onInput}) {
 
-function Item({item, onToggle}) {
-
-  return (
-    <li className="list-item">
-      {/* <input type="checkbox" value={item.checked} onChange={()=>onToggle(item.id)}/> */}
-      <i className={item.checked ? "fa-solid fa-square-full" : "fa-regular fa-square-full"} onClick={()=>onToggle(item.id)}></i>
-      <div class="item-body">
-        <span className={item.checked ? "completed" : ""}>{item.name}</span>
-        {/* <span className="small-text">{item.date.slice(4)}</span> */}
-      </div>
-      <div className="item-actions">
-      <i class="fa-solid fa-pencil"></i>
-      <i class="fa-solid fa-xmark"></i>
-      </div>
-    </li>
+  return(
+      <form className="add-form" onSubmit={onSubmit}>
+        <input type="text" placeholder="Enter to do item..." value={input} onChange={(e)=>onInput(e.target.value)}/>
+        <button type="submit"><i className="fa-sharp fa-solid fa-plus"></i></button>
+      </form>
   )
 }
